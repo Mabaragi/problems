@@ -1,43 +1,38 @@
-import sys
+N, M = map(int, input().split())
 
-def get_parent(parent, x):
-    if parent[x] == x:
-        return x
-    return get_parent(parent, parent[x])
+roads = []
+parent = [i for i in range(N + 1)]
 
+for _ in range(M):
+    a, b, c = map(int, input().split())
+    roads.append((c, a, b))
 
-def find_parent(parent, a, b):
-    a = get_parent(parent, a)
-    b = get_parent(parent, b)
-    if a == b:
-        return True
-    return False
+roads.sort()
 
 
-def union_parent(parent, a, b):
-    a = get_parent(parent, a)
-    b = get_parent(parent, b)
+def union(a, b, parent):
+    a = get_parent(a, parent)
+    b = get_parent(b, parent)
     if a < b:
         parent[b] = a
     else:
         parent[a] = b
 
 
-N, M = map(int, sys.stdin.readline().split())
-adjl = [[] for _ in range(N + 1)]
-edge_lst = []
 
-for _ in range(M):
-    a, b, c = map(int, sys.stdin.readline().split())
-    adjl[a].append((c, b))
-    adjl[b].append((c, a))
-    edge_lst.append((c, a, b))
-edge_lst.sort()
-parent = [i for i in range(N + 1)]
+def get_parent(a, parent):
+    if parent[a] == a:
+        return a
+    else:
+        return get_parent(parent[a], parent)
+
 ans = 0
-for i in range(M):
-    cost, start, end = edge_lst[i]
-    if not find_parent(parent, start, end):
-        union_parent(parent, start, end)
+for road in roads:
+    cost, a, b, = road
+    if get_parent(a, parent) == get_parent(b, parent):
+        continue
+    else:
+        union(a, b, parent)
         ans += cost
+
 print(ans)
