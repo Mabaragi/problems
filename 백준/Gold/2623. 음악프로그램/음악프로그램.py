@@ -1,6 +1,5 @@
 from collections import deque
 
-
 N, M = map(int, input().split())
 adjl = [[] for _ in range(N + 1)]
 in_degree = [0] * (N + 1)
@@ -15,6 +14,7 @@ for _ in range(M):
 discovered = [-1] * (N + 1)
 finished = [0] * (N + 1)
 node_order = 0
+T = deque([])
 
 
 def dfs(s):
@@ -28,28 +28,12 @@ def dfs(s):
             print(0)
             exit()
     finished[s] = 1
+    T.appendleft(s)
 
 
 for i in range(1, N + 1):
     if discovered[i] == -1:
         dfs(i)
 
-T = []
-qu = deque([])
-visit = [0] * (N + 1)
-for i in range(1, N + 1):
-    if in_degree[i] == 0:
-        qu.append(i)
-        visit[i] = 1
-
-while qu:
-    cn = qu.popleft()
-    T.append(cn)
-    for nn in adjl[cn]:
-        if visit[nn] == 0:
-            in_degree[nn] -= 1
-            if in_degree[nn] == 0:
-                visit[nn] = 1
-                qu.append(nn)
 for i in T:
     print(i)
