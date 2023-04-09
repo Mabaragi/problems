@@ -16,8 +16,7 @@ while qu:
     current_nod = heapq.heappop(qu)
     T.append(current_nod)
     for next_nod in adjl[current_nod]:
-        if in_degree[next_nod] >= 1:
-            in_degree[next_nod] -= 1
-            if in_degree[next_nod] == 0:
-                heapq.heappush(qu, next_nod)
+        in_degree[next_nod] -= 1
+        if in_degree[next_nod] == 0:
+            heapq.heappush(qu, next_nod)
 print(*T)
