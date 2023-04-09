@@ -1,3 +1,5 @@
+import heapq
+
 N, M = map(int, input().split())
 in_degree = [0] * (N + 1)
 adjl = [[] for _ in range(N + 1)]
@@ -6,17 +8,16 @@ for _ in range(M):
     adjl[a].append(b)
     in_degree[b] += 1
 T = []
-visit = [0] * (N + 1)
-while sum(in_degree) != 0:
-    for i in range(1, N + 1):
-        if visit[i] == 0 and in_degree[i] == 0:
-            T.append(i)
-            visit[i] = 1
-            for j in adjl[i]:
-                in_degree[j] -= 1
-            break
-
+qu = []
 for i in range(1, N + 1):
-    if visit[i] == 0:
-        T.append(i)
+    if in_degree[i] == 0:
+        qu.append(i)
+while qu:
+    current_nod = heapq.heappop(qu)
+    T.append(current_nod)
+    for next_nod in adjl[current_nod]:
+        if in_degree[next_nod] >= 1:
+            in_degree[next_nod] -= 1
+            if in_degree[next_nod] == 0:
+                heapq.heappush(qu, next_nod)
 print(*T)
