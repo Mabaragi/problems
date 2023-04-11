@@ -11,14 +11,14 @@ INF = 4 * N
 dp = [[[INF for _ in range(5)] for _ in range(5)] for _ in range(N + 1)]
 
 dp[0][0][0] = 0
-for i in range(1, N):
-    cmd = cmds[i - 1]
+for i in range(0, N - 1):
+    cmd = cmds[i]
     for l in range(5):
         for r in range(5):
-            if dp[i - 1][l][r] != INF:
-                if dp[i][cmd][r] > dp[i - 1][l][r] + costs[l][cmd]:
-                    dp[i][cmd][r] = dp[i - 1][l][r] + costs[l][cmd]
-                if dp[i][l][cmd] > dp[i - 1][l][r] + costs[r][cmd]:
-                    dp[i][l][cmd] = dp[i - 1][l][r] + costs[r][cmd]
+            if dp[i][l][r] != INF:
+                if dp[i + 1][cmd][r] > dp[i][l][r] + costs[l][cmd]:
+                    dp[i + 1][cmd][r] = dp[i][l][r] + costs[l][cmd]
+                if dp[i + 1][l][cmd] > dp[i][l][r] + costs[r][cmd]:
+                    dp[i + 1][l][cmd] = dp[i][l][r] + costs[r][cmd]
 
 print(min(min(i for i in dp[N - 1])))
