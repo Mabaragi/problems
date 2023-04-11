@@ -1,6 +1,6 @@
 import sys
 
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(200000)
 def func(i):
     ans = 0
     if i in dp:
