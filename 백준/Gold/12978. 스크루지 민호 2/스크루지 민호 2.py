@@ -2,10 +2,10 @@ import sys
 
 sys.setrecursionlimit(2000000)
 
-N = int(input())
+N = int(sys.stdin.readline())
 adjl = [[] for _ in range(N)]
 for _ in range(N - 1):
-    a, b = map(int, input().split())
+    a, b = map(int, sys.stdin.readline().split())
     adjl[a - 1].append(b - 1)
     adjl[b - 1].append(a - 1)
 visit = [0] * N
