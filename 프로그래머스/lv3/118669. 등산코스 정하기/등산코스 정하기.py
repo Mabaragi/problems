@@ -19,12 +19,13 @@ def solution(n, paths, gates, summits):
     
     visit = [INF] * N
     for s in gates:
+        visit[s - 1] = 0
+    for s in gates:
         s -= 1
-        visit[s] = 0
         qu = deque([(s, 0)])
         while qu:
             cn, cc = qu.popleft()
-            if cc > visit[cn] or (cn != s and cn + 1 in gates_set) or cn + 1 in summits_set:
+            if cc > visit[cn] or cn + 1 in summits_set:
                 continue
             for nn, nc in adjl[cn]:
                 if nc < cc:
