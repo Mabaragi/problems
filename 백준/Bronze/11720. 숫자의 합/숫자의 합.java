@@ -5,9 +5,10 @@ class Main {
     Scanner sc = new Scanner(System.in);
     int N = sc.nextInt();
     String nums = sc.next();
+    String[] arr = nums.split("");
     int sum = 0;
     for (int i = 0; i < N; i++) {
-      sum += nums.charAt(i) - '0';
+      sum += Integer.parseInt(arr[i]);
     }
     System.out.println(sum);
   }
