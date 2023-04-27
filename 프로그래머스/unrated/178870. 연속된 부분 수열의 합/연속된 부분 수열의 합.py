@@ -3,17 +3,17 @@ def solution(sequence, k):
 
     max_sum = 0
     end = 0
-
-    res = []
+    
+    mn_length = 10e6
     for i in range(n):
-
+        
         while max_sum < k and end < n:
             max_sum += sequence[end]
             end += 1
-
-        if max_sum == k:
-            res.append([i, end-1, end-1-i])
-
+        
+        if max_sum == k and mn_length > end - 1 - i:            
+            mn_length = end - 1 - i
+            res = [i, end - 1]
+        
         max_sum -= sequence[i]
-    res = sorted(res, key=lambda x: x[2])
-    return res[0][:2]
+    return res
