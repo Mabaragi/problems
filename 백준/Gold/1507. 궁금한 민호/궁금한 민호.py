@@ -1,71 +1,43 @@
 import sys
 
-def floyd():
-    for m in range(N):
-        for s in range(N):
-            if s == m:
-                continue
-            for e in range(N):
-                if s == e or m == e:
-                    continue
-                if dist[s][e] > dist[s][m] + dist[m][e]:
-                    dist[s][e] = dist[s][m] + dist[m][e]
-
-
-def check():
-    mn = 5000
-    flag = False
-    for i in range(N):
-        for j in range(N):
-            if i != j and adjm[i][j] != dist[i][j]:
-                flag = True
-                if mn > adjm[i][j]:
-                    mn = adjm[i][j]
-                    r, c = i, j
-    if flag:
-        return r, c
-    return False
-
-
-def get_min(lst):
-    mn = 5000
-    mn_lst = []
-    for i in range(len(lst)):
-        if lst[i] != 0 and mn > lst[i]:
-            mn = lst[i]
-            mn_lst = [i]
-        elif mn == lst[i]:
-            mn_lst.append(i)
-
-    return mn, mn_lst
-
-
 N = int(input())
-adjm = []
-INF = 1e9
-dist = [[INF] * N for _ in range(N)]
-ans = 0
+array = [list(map(int, input().split())) for _ in range(N)]
 
-for i in range(N):
-    lst = list(map(int, input().split()))
-    adjm.append(lst)
-    mn, mn_lst = get_min(lst)
-    for j in mn_lst:
-        if dist[i][j] == INF and dist[j][i] == INF and i != j:
-            dist[i][j] = mn
-            dist[j][i] = mn
-            ans += mn
-floyd()
+ans = sum([sum(i) for i in array])
+array2 = [i[:] for i in array]
 
-for _ in range(N ** 2 + 1):
-    a = check()
-    if a:
-        r, c = a
-        dist[r][c] = adjm[r][c]
-        dist[c][r] = adjm[r][c]
-        ans += adjm[r][c]
-        floyd()
-    else:
-        print(ans)
-        exit()
-print(-1)
+for m in range(N):
+    for s in range(N):
+        if s == m:
+            continue
+        for e in range(N):
+            if e == m:
+                continue
+            if array2[s][e] > array2[s][m] + array2[m][e]:
+                array2[s][e] = array2[s][m] + array2[m][e]
+                print(-1)
+                exit()
+"""
+5
+0 6 15 2 6
+6 0 9 8 12
+15 9 0 16 18
+2 8 16 0 4
+6 12 18 4 0
+
+이미 플로이드가 적용된 상태
+"""
+for m in range(N):
+    for s in range(N):
+        if s == m:
+            continue
+        for e in range(N):
+            if e == m:
+                continue
+            if array[s][e] == array[s][m] + array[m][e]:
+                ans -= array[s][e]
+                array2[s][e] = 0
+
+print(sum([sum(i) for i in array2]) // 2)
+
+
