@@ -14,6 +14,8 @@ def bfs(drc):
     qu = deque([(0, 0)])
     while qu:
         ci, cj = qu.popleft()
+        if drc == 1 and visit_to[ci][cj] + visit[ci][cj] > D:
+            continue
         if visit[ci][cj] > D:
             continue
         for di, dj in ((1, 0), (0, 1), (-1, 0), (0, -1)):
