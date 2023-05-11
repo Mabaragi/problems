@@ -1,13 +1,15 @@
+import sys
 from bisect import bisect_left
 
-N, M = map(int, input().split())
-K = int(input())
+
+N, M = map(int, sys.stdin.readline().split())
+K = int(sys.stdin.readline())
 if K == 0:
     print(0)
     exit()
 cats = []
 for _ in range(K):
-    i, j = map(int, input().split())
+    i, j = map(int, sys.stdin.readline().split())
     if i > N or j > M:
         continue
     cats.append((i, j))
