@@ -1,11 +1,12 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-
+        //System.setIn(new FileInputStream("./input.txt"));
+        // Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         int num = 64;
         int remainder = 0;
         int cnt = 1;
