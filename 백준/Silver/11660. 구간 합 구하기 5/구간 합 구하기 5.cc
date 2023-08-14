@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main() {
@@ -9,7 +10,7 @@ int main() {
     cin >> N, cin >> M;
 
 //    N * N 배열 입력
-    static int arr[1025][1025];
+    vector<vector<int>> arr(N + 1, vector<int>(N + 1, 0));
 
     for (int i = 1; i < N + 1; ++i) {
         for (int j = 1; j < N + 1; ++j) {
