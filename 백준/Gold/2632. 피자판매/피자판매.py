@@ -1,13 +1,11 @@
 import collections
-
 import sys
 
 
-
-K = int(input())
-N, M = map(int, input().split())
-pizza_a = [int(input()) for _ in range(N)] * 2
-pizza_b = [int(input()) for _ in range(M)] * 2
+K = int(sys.stdin.readline())
+N, M = map(int, sys.stdin.readline().split())
+pizza_a = [int(sys.stdin.readline()) for _ in range(N)] * 2
+pizza_b = [int(sys.stdin.readline()) for _ in range(M)] * 2
 
 for i in range(1, 2 * N):
     pizza_a[i] += pizza_a[i - 1]
